@@ -1,0 +1,17 @@
+# 执行 docker-compose up -d --build
+
+services:
+  ai-container:
+    build: .
+    tty: true
+    volumes:
+      - ./opt:/opt
+    ports:
+      - 7860:7860
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all # alternatively, use `all` for all GPUs
+              capabilities: [gpu]
