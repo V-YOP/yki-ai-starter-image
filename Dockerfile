@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.8.0-base-ubuntu22.04
+# 只需使用 base 即可，其它的依赖安装 torch 的时候它会帮忙安装的
+FROM nvidia/cuda:11.8.0-base-ubuntu22.04 
 
 # 更换 APT 源
 RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime # 避免 tz-data 烦人
@@ -28,7 +29,8 @@ apt install -y \
   llvm \
   tk-dev \
   xz-utils \
-  zlib1g-dev
+  zlib1g-dev \
+  nginx
 
 # 注意这步会访问github，网络问题需要注意
 RUN curl https://pyenv.run | bash   # pyenv 用于管理 python 
@@ -61,8 +63,16 @@ RUN cat > ~/.config/pip/pip.conf <<'EOF'
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 EOF
 
+# 创建启动脚本
+RUN cat > /docker.entrypoint.sh <<'EOF'
+# 启动 nginx
+nginx
+
+# 阻塞我
+read
+EOF
 
 # 使用 sed 转换换行符
-RUN sed -i 's/\r//' ~/.bashrc && sed -i 's/\r//' ~/.config/pip/pip.conf
+RUN sed -i 's/\r//' ~/.bashrc && sed -i 's/\r//' ~/.config/pip/pip.conf && sed -i 's/\r//' /docker.entrypoint.sh 
 
-CMD '/bin/bash'
+CMD ["/bin/bash", "/docker.entrypoint.sh"]

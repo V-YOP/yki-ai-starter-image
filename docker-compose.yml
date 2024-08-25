@@ -7,8 +7,18 @@ services:
     volumes:
       - ./opt:/opt
       - ./home:/home
+      - ./nginx.conf:/etc/nginx/sites-enabled/default:ro
     ports:
-      - 7860:7860
+      - 7860:8860
+      - 7861:8861
+      - 7862:8862
+      - 7863:8863
+      - 7864:8864
+      - 7865:8865
+      - 7866:8866
+      - 7867:8867
+      - 7868:8868
+      - 7869:8869
     deploy:
       resources:
         reservations:
