@@ -14,6 +14,7 @@ apt install -y \
   make \
   libgl1 \
   libglib2.0-0 \
+  libsndfile1 \
   build-essential \
   libbz2-dev \
   libffi-dev \
@@ -34,6 +35,8 @@ RUN curl https://pyenv.run | bash   # pyenv 用于管理 python
 
 # 根据 pyenv 的提示添加下面内容到.bashrc
 RUN cat >> ~/.bashrc <<'EOF'
+# hf 代理
+export HF_ENDPOINT=https://hf-mirror.com
 
 # 这两行是 pyenv 的代理配置
 export PYTHON_BUILD_MIRROR_URL_SKIP_CHECKSUM=1

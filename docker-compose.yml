@@ -6,6 +6,7 @@ services:
     tty: true
     volumes:
       - ./opt:/opt
+      - ./home:/home
     ports:
       - 7860:7860
     deploy:
