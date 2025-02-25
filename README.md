@@ -25,7 +25,7 @@
 pyenv install 3.10.14
 ```
 
-4. 创建项目所需的虚拟环境并配置该文件夹使用该环境
+4. 创建项目所需的虚拟环境并配置该文件夹使用该环境：
 
 ```sh
 pyenv local 3.10.14 # 指定虚拟环境的版本……吧
@@ -33,16 +33,11 @@ pyenv virtualenv 虚拟环境名
 pyenv local 虚拟环境名
 ```
 
+这样，每次进入该文件夹，就会自动使用该虚拟环境，方便得很呐。
+
 每次容器重新创建时，python 需要重新安装。
 
-5. 安装完成后，在项目根目录创建虚拟环境并激活：
-
-```sh
-python -m venv .venv
-source .venv/bin/activate
-```
-
-6. 根据项目文档描述去安装项目所需依赖，启动项目，如果确实系统库，可能需要再次执行`apt install xxx`，可以将相关依赖添加到 Dockerfile 中。
+5. 根据项目文档描述去安装项目所需依赖，启动项目，如果确实系统库，可能需要再次执行`apt install xxx`，可以将相关依赖添加到 Dockerfile 中。
 
 ```sh
 pip install -r requirements.txt # 一般而言使用该命令安装依赖，Stable Diffusion WebUI 是如此的
